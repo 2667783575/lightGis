@@ -28,29 +28,32 @@ void PropertyView::display(const long long id) const {
     model_->setColumnCount(2);
 
     qDebug()<<"id:"<<id;
-    const auto& item = (*map_model_->id_to_node())[id];
-    addProperty("Name",item->name());
-    item->getType();
-    if (item->getType() == GeoItem::Node) {
-        addProperty("Type","Node");
-        QString node_level;
-        if (item->level() == GeoNode::Province) {
-            node_level = "Province";
-        }else if (item->level() == GeoNode::City) {
-            node_level = "City";
-        }else if (item->level() == GeoNode::Country) {
-            node_level = "Country";
+        if ((*map_model_->id_to_item())[id]->getType() == GeoItem::Node) {
+            auto item = reinterpret_cast<GeoNode *>((*map_model_->id_to_item())[id]);
+            addProperty("Name",item->name());
+            item->getType();
+            if (item->getType() == GeoItem::Node) {
+                addProperty("Type","Node");
+                QString node_level;
+                if (item->level() == GeoNode::Province) {
+                    node_level = "Province";
+                }else if (item->level() == GeoNode::City) {
+                    node_level = "City";
+                }else if (item->level() == GeoNode::Country) {
+                    node_level = "Country";
+                }
+
+                addProperty("level",node_level);
+                addProperty("acroutes",QString::number(item->acroutes()));
+                addProperty("adcode",QString::number(item->adcode()));
+                addProperty("subFeatureIndex",QString::number(item->sub_feature_index()));
+                addProperty("center",QString("(%1,%2)").arg(item->center().longitude()).arg(item->center().latitude()));
+                addProperty("centroid",QString("(%1,%2)").arg(item->centroid().longitude()).arg(item->centroid().latitude()));
+                addProperty("childrenNum",QString::number(item->childrenNum()));
+                property_view_->update();
+            }
         }
 
-        addProperty("level",node_level);
-        addProperty("acroutes",QString::number(item->acroutes()));
-        addProperty("adcode",QString::number(item->adcode()));
-        addProperty("subFeatureIndex",QString::number(item->sub_feature_index()));
-        addProperty("center",QString("(%1,%2)").arg(item->center().longitude()).arg(item->center().latitude()));
-        addProperty("centroid",QString("(%1,%2)").arg(item->centroid().longitude()).arg(item->centroid().latitude()));
-        addProperty("childrenNum",QString::number(item->childrenNum()));
-        property_view_->update();
-    }
 }
 
 void PropertyView::addProperty(const QString &name, const QString &value) const{
