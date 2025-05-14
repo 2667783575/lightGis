@@ -1,26 +1,32 @@
-//
-// Created by eric on 4/27/25.
-//
-
 #ifndef PATH_PLANNING_H
 #define PATH_PLANNING_H
-#include "list_view.h"
-
-
+#include <QComboBox>
+#include <QPushButton>
+#include <QStandardItemModel>
 #include <QWidget>
+#include "list_view.h"
+#include "nodes_model.h"
+#include "result_widget.h"
 
-
-class PathPlanning final :public QWidget {
+class PathPlanning:public QWidget {
+  Q_OBJECT
 public:
-
-    PathPlanning(QWidget *parent, MapModel *map_model);
-
+  PathPlanning(QWidget *widget,MapModel *map_model);
+  ~PathPlanning() override;
 private:
-    ListView *list_view_;
-    NodesModel *nodes_model_;
-    MapModel *map_model_;
+  ResultWidget *result_widget_;
+  ListView  *list_view_;
+  QPushButton *add_button_;
+  QPushButton *remove_button_;
+  QComboBox *combo_box_;
+  MapModel *map_model_;
+  QStandardItemModel *station_model_;
+  QStandardItemModel *goal_nodes_model;
+  public slots:
+  void updateComboBoxModel();
+  void addStation();
+  void removeStation();
+  void solve();
 };
 
-
-
-#endif //PATH_PLANNING_H
+#endif

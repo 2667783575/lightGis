@@ -2,17 +2,19 @@
 // Created by eric on 4/14/25.
 //
 
-#include "region_item.h"
+#include "../scene_element/region_item.h"
 
 #include <iostream>
 #include <ostream>
 #include <qfont.h>
+#include <QGraphicsSceneMouseEvent>
 #include <private/qdoublevector2d_p.h>
 #include <private/qwebmercator_p.h>
 
 void RegionItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsPathItem::mousePressEvent(event);
     emit wakeUp(id());
+    event->accept();
 }
 
 RegionItem::RegionItem(const QGeoPolygon &polygon, const long long id) {

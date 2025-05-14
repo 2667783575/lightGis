@@ -9,9 +9,10 @@
 #include <QFont>
 #include <private/qdoublevector2d_p.h>
 #include <private/qwebmercator_p.h>
-
-class PathItem final:public QGraphicsPathItem {
-public:
+#include <QGraphicsSceneMouseEvent>
+class PathItem final:public QObject,public QGraphicsPathItem {
+    Q_OBJECT
+    public:
     long long id_;
     static QSize size_;
 
@@ -29,13 +30,16 @@ public:
 
     static void setSize(const QSize &size) {
         size_ = size;
-        size_ = size;
         size_.setWidth(size.height());
     }
 
     PathItem(long long f_node,long long t_node,const QGeoPath &path,long long id);
     ~PathItem() override = default;
 
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    signals:
+    void wakeUp(long long id);
 };
 
 

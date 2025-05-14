@@ -2,17 +2,19 @@
 // Created by eric on 5/2/25.
 //
 
-#include "path_item.h"
+#include "../scene_element/path_item.h"
 
 #include <qfont.h>
 #include <qpen.h>
 
 
-PathItem::PathItem(long long f_node,long long t_node,const QGeoPath &path, long long id):id_(id) {
+PathItem::PathItem(long long f_node,long long t_node,const QGeoPath &path,const long long id) {
+    setId(id);
     auto pen = QPen(Qt::red);
+    setZValue(1);
     pen.setWidthF(0.1);
     this->setPen(pen);
-    qDebug()<<size_;
+    // qDebug()<<size_;
 
 
     QPainterPath painter;
@@ -46,4 +48,8 @@ PathItem::PathItem(long long f_node,long long t_node,const QGeoPath &path, long 
     this->setPath(painter);
 }
 
-
+void PathItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    QGraphicsPathItem::mousePressEvent(event);
+    emit wakeUp(id());
+    event->accept();
+}

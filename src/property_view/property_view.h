@@ -6,7 +6,7 @@
 #define NODE_INFO_PANEL_H
 #include <QWidget>
 
-#include "../map/geo_node.h"
+#include "../map/map_element/geo_node.h"
 #include "../map/map_model.h"
 #include <QListWidget>
 #include <QVBoxLayout>
@@ -27,7 +27,9 @@ private:
     QTableView *property_view_;
     QStandardItemModel *model_;
 public slots:
-    void display(long long id) const;
+    void displayRegion(long long id);
+public slots:
+    void displayPath(long long id);
 };
 
 
