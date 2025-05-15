@@ -61,7 +61,7 @@ void PathPlanning::updateComboBoxModel() {
     // qDebug() << map_model_->stations_.size();
     station_model_->clear();
     std::vector<long long> stations;
-    stations.assign(map_model_->stations_.begin(), map_model_->stations_.end());
+    stations.assign(stations_->begin(), stations_->end());
     std::sort(stations.begin(), stations.end());
     for (const auto &station: stations) {
         QStandardItem *item = new QStandardItem(QString::number(station));

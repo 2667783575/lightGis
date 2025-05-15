@@ -32,18 +32,7 @@ PathItem::PathItem(long long f_node,long long t_node,const QGeoPath &path,const 
         p.setY(p.y()*size_.height());
         painter.lineTo(p);
     }
-    QFont font;
-    font.setPointSizeF(1);
-    font.setBold(false);
-    font.setWeight(QFont::Light);
-    font.setFamily("宋体");
-    painter.addText(pointF,font,QString("%1").arg(f_node));
 
-    QPointF pointT = QWebMercator::coordToMercator(path.path()[path.path().length()-1]).toPointF();
-    pointT.setX(pointT.x()*size_.width());
-    pointT.setY(pointT.y()*size_.height());
-    painter.moveTo(pointT);
-    painter.addText(pointT,font,QString("%1").arg(t_node));
 
     this->setPath(painter);
 }

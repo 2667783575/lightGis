@@ -13,6 +13,14 @@ class PathPlanning:public QWidget {
 public:
   PathPlanning(QWidget *widget,MapModel *map_model);
   ~PathPlanning() override;
+ void set_stations(QSet<long long> *stations) {
+    stations_ = stations;
+  }
+
+  void set_roads_id(QHash<QPair<long long, long long>, long long> *roads_id) {
+    roads_id_ = roads_id;
+  }
+
 private:
   ResultWidget *result_widget_;
   ListView  *list_view_;
@@ -20,6 +28,8 @@ private:
   QPushButton *remove_button_;
   QComboBox *combo_box_;
   MapModel *map_model_;
+  QSet<long long>* stations_;
+  QHash<QPair<long long,long long>,long long>* roads_id_;
   QStandardItemModel *station_model_;
   QStandardItemModel *goal_nodes_model;
   public slots:
