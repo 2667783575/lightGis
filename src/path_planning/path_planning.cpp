@@ -3,7 +3,7 @@
 #include <qlayout.h>
 
 PathPlanning::PathPlanning(QWidget *widget, MapModel *map_model): QWidget(widget) {
-    //this->setVisible(false);
+    this->setVisible(false);
     map_model_ = map_model;
     goal_nodes_model = new QStandardItemModel(this);
     list_view_ = new ListView(this);
@@ -25,6 +25,7 @@ PathPlanning::PathPlanning(QWidget *widget, MapModel *map_model): QWidget(widget
     this->layout()->addWidget(result_widget_);
     connect(add_button_, &QPushButton::clicked, this, &PathPlanning::addStation);
     connect(remove_button_, &QPushButton::clicked, this, &PathPlanning::removeStation);
+    connect(remove_button_, &QPushButton::clicked, this,[this]{emit MapViewCancelHightPath();});
 }
 
 void PathPlanning::addStation() {
@@ -54,6 +55,7 @@ void PathPlanning::solve() {
         map_model_->graph_.calculateShortestPaths(start);
     }
     result_widget_->addResult(map_model_->graph_.formatResult(end));
+    emit MapViewHighlightPath(map_model_->graph_.getPath(end));
 }
 void PathPlanning::updateComboBoxModel() {
     // qDebug() << "station model";

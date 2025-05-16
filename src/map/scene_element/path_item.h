@@ -29,12 +29,13 @@ class PathItem final:public QObject,public QGraphicsPathItem {
     }
 
     static void setSize(const QSize &size) {
-        size_ = size;
-        size_.setWidth(size.height());
+        size_.setHeight(std::min(size.height(), size.width()));
+        size_.setWidth(std::min(size.height(), size.width()));
     }
 
     PathItem(long long f_node,long long t_node,const QGeoPath &path,long long id);
     ~PathItem() override = default;
+void setHighlight(bool hl);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

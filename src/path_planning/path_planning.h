@@ -17,10 +17,9 @@ public:
     stations_ = stations;
   }
 
-  void set_roads_id(QHash<QPair<long long, long long>, long long> *roads_id) {
-    roads_id_ = roads_id;
-  }
-
+  signals:
+  void MapViewHighlightPath(QList<long long> path);
+  void MapViewCancelHightPath();
 private:
   ResultWidget *result_widget_;
   ListView  *list_view_;
@@ -29,7 +28,6 @@ private:
   QComboBox *combo_box_;
   MapModel *map_model_;
   QSet<long long>* stations_;
-  QHash<QPair<long long,long long>,long long>* roads_id_;
   QStandardItemModel *station_model_;
   QStandardItemModel *goal_nodes_model;
   public slots:

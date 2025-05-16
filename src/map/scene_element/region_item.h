@@ -24,8 +24,8 @@ public:
     explicit RegionItem(const QGeoPolygon& polygon,long long id);
     static QSize size_;
     static void setSize(const QSize size) {
-        size_ = size;
-        size_.setWidth(size.height());
+        size_.setHeight(std::min(size.width(), size.height()));
+        size_.setWidth(std::min(size.width(), size.height()));
     }
     long long id_{};
 protected:
