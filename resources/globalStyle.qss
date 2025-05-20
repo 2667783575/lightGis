@@ -1,0 +1,237 @@
+/* 全局基础样式 */
+QWidget {
+    font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 10pt;
+    color: #2C3E50;
+    background-color: #F8F9FA;
+    selection-background-color: #3498DB;
+    selection-color: #FFFFFF;
+}
+
+/* 菜单栏样式 */
+QMenuBar {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 2px 4px;
+}
+
+QMenuBar::item {
+    background: transparent;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 4px;
+}
+
+QMenuBar::item:selected {
+    background-color: #EBF5FB;
+}
+
+QMenu {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    padding: 4px 0;
+    border-radius: 6px;
+}
+
+QMenu::item:selected {
+    background-color: #3498DB;
+    color: white;
+    border-radius: 4px;
+}
+
+/* 按钮样式 */
+QPushButton {
+    background-color: #3498DB;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    min-height: 24px;
+    font-weight: 500;
+    outline: 0;
+}
+
+QPushButton:hover {
+    background-color: #2980B9;
+}
+
+QPushButton:pressed {
+    background-color: #2573A6;
+    padding: 7px 11px 5px 13px;
+}
+
+QPushButton:disabled {
+    background-color: #BDC3C7;
+    color: #7F8C8D;
+}
+
+/* 标签样式 */
+QLabel {
+    padding: 2px 4px;
+    background-color: transparent;
+    font-weight: 400;
+}
+
+/* 列表视图样式 */
+QListView {
+    alternate-background-color: #F1F2F3;
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+QListView::item:selected {
+    background-color: #3498DB;
+    color: white;
+    border-radius: 4px;
+}
+
+QListView::item:hover {
+    background-color: #EBF5FB;
+}
+
+/* 表格视图样式 */
+QTableView {
+    gridline-color: #DDE0E3;
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    selection-background-color: #3498DB;
+}
+
+QTableView::item:selected {
+    color: white;
+}
+
+QTableView QHeaderView::section {
+    background-color: #F1F2F3;
+    padding: 6px;
+    border: 1px solid #E0E0E0;
+    font-weight: 600;
+}
+
+/* 图形场景样式（通过视图继承） */
+QGraphicsView {
+    background-color: #F8F9FA;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+/* 滚动条样式 */
+QScrollBar:vertical {
+    background: #F1F2F3;
+    width: 12px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: #C0C0C0;
+    min-height: 20px;
+    border-radius: 6px;
+}
+
+QScrollBar::add-line, QScrollBar::sub-line {
+    background: none;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page {
+    background: none;
+}
+
+/* 工具提示样式 */
+QToolTip {
+    background-color: #3498DB;
+    color: white;
+    border: 1px solid #2573A6;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 200;
+}
+/* 下拉框基础样式 */
+QComboBox {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    padding: 4px 8px;
+    padding-right: 20px; /* 为下拉箭头留空间 */
+    min-height: 24px;
+    font-size: 10pt;
+}
+
+/* 下拉框下拉菜单样式 */
+QComboBox::drop-down {
+    border: none;
+    background-color: transparent;
+    padding-right: 4px;
+}
+
+QComboBox::down-arrow {
+    image: url(:/icons/arrow_down.svg); /* 推荐使用矢量图标 */
+    width: 12px;
+    height: 12px;
+}
+
+/* 下拉框悬停和焦点样式 */
+QComboBox:hover {
+    border-color: #3498DB;
+}
+
+QComboBox:focus {
+    border-color: #3498DB;
+    outline: 0;
+    background-color: #EBF5FB;
+}
+
+/* 下拉框菜单样式（继承自QMenu） */
+QComboBox QAbstractItemView {
+    outline: 0px;
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    selection-background-color: #3498DB;
+    alternate-background-color: #F1F2F3;
+}
+
+/* 动作对象样式（菜单项/工具栏按钮） */
+QAction::icon {
+    padding-right: 8px;
+}
+
+QAction::text {
+    padding-left: 4px;
+}
+
+/* 菜单项快捷键样式 */
+QAction::shortcut {
+    color: #7F8C8D;
+    margin-left: 12px;
+    font-size: 9pt;
+}
+
+/* 特殊动作类型样式（如分隔符） */
+QAction::separator {
+    background-color: #E0E0E0;
+    margin: 4px 12px;
+    height: 1px;
+}
+
+/* 工具栏动作样式 */
+QToolBar QComboBox {
+    padding: 2px 6px;
+    margin: 2px;
+}
+
+QToolBar QPushButton {
+    padding: 2px 8px;
+    margin: 2px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+QToolBar QPushButton:hover {
+    background-color: #EBF5FB;
+    border-color: #3498DB;
+}

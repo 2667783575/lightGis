@@ -5,13 +5,14 @@
 #include "property_view.h"
 
 PropertyView::PropertyView(MapModel *map_model, QWidget *parent): QWidget(parent), map_model_(map_model) {
-    setVisible(false);
+    QWidget::setVisible(false);
     this->setWindowTitle("Info Panel");
+    this->setFixedSize(400,500);
     model_ = new QStandardItemModel(this);
     property_view_ = new QTableView(this);
     property_view_->setFont(QFont());
     property_view_->setModel(model_);
-    property_view_->setMinimumSize(400, 500);
+    property_view_->setFixedSize(this->size());
     property_view_->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     property_view_->setSelectionMode(QAbstractItemView::NoSelection);
     property_view_->setSelectionBehavior(QAbstractItemView::SelectItems);
@@ -22,10 +23,12 @@ void PropertyView::displayRegion(const long long id)  {
     model_->setHeaderData(0, Qt::Horizontal, QString("Property"));
     model_->setHeaderData(1, Qt::Horizontal, QString("Value"));
     model_->setHorizontalHeaderLabels({"Property", "Value"});
-    property_view_->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    property_view_->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     property_view_->verticalHeader()->setVisible(false);
     model_->setColumnCount(2);
-
+    property_view_->setColumnWidth(0,this->width()/2);
+    property_view_->setColumnWidth(1,this->width()/2);
+    property_view_->setGridStyle(Qt::PenStyle::SolidLine);
     // qDebug() << "id:" << id;
     if ((*map_model_->id_to_item())[id]->getType() == GeoItem::Node) {
         auto item = reinterpret_cast<GeoNode *>((*map_model_->id_to_item())[id]);
@@ -65,10 +68,11 @@ void PropertyView::displayPath(long long id) {
     model_->setHeaderData(0, Qt::Horizontal, QString("Property"));
     model_->setHeaderData(1, Qt::Horizontal, QString("Value"));
     model_->setHorizontalHeaderLabels({"Property", "Value"});
-    property_view_->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    property_view_->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     property_view_->verticalHeader()->setVisible(false);
     model_->setColumnCount(2);
-
+    property_view_->setColumnWidth(0,this->width()/2);
+    property_view_->setColumnWidth(1,this->width()/2);
     // qDebug() << "id:" << id;
     if ((*map_model_->id_to_item())[id]->getType() == GeoItem::Road) {
         auto item = reinterpret_cast<GeoRoad *>((*map_model_->id_to_item())[id]);

@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/styles">
+        <file>resources/globalStyle.qss</file>
+    </qresource>
+    <qresource prefix="/help">
+        <file>resources/0.html</file>
+        <file>resources/1.html</file>
+        <file>resources/2.html</file>
+        <file>resources/3.html</file>
+        <file>resources/4.html</file>
+    </qresource>
+</RCC>

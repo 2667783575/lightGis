@@ -1,18 +1,20 @@
 #include "path_planning.h"
 
-#include <qlayout.h>
 
 PathPlanning::PathPlanning(QWidget *widget, MapModel *map_model): QWidget(widget) {
-    this->setVisible(false);
+    this->QWidget::setVisible(false);
     map_model_ = map_model;
     goal_nodes_model = new QStandardItemModel(this);
-    list_view_ = new ListView(this);
+    list_view_ = new QListView(this);
+    list_view_->setFont(QFont("Helvetica", 12, QFont::Bold));
     result_widget_ = new ResultWidget(this);
     list_view_->setModel(goal_nodes_model);
     add_button_ = new QPushButton("add", this);
     remove_button_ = new QPushButton("remove", this);
     combo_box_ = new QComboBox(this);
     station_model_ = new QStandardItemModel(this);
+    whole_distance_label_ = new QLabel("whole distance :", this);
+
     goal_nodes_model->insertColumn(0);
     combo_box_->setModel(station_model_);
     combo_box_->setModelColumn(0);
@@ -23,40 +25,52 @@ PathPlanning::PathPlanning(QWidget *widget, MapModel *map_model): QWidget(widget
     this->layout()->addWidget(add_button_);
     this->layout()->addWidget(remove_button_);
     this->layout()->addWidget(result_widget_);
+    this->layout()->addWidget(whole_distance_label_);
+    updateWholeDistanceLabel();
     connect(add_button_, &QPushButton::clicked, this, &PathPlanning::addStation);
     connect(remove_button_, &QPushButton::clicked, this, &PathPlanning::removeStation);
-    connect(remove_button_, &QPushButton::clicked, this,[this]{emit MapViewCancelHightPath();});
+    connect(remove_button_, &QPushButton::clicked, this, [this] { emit MapViewCancelHighlightPath(); });
 }
 
 void PathPlanning::addStation() {
     if (combo_box_->currentText().isEmpty()) {
         return;
     }
-    auto * item = new  QStandardItem(combo_box_->currentText());
+    auto *item = new QStandardItem(combo_box_->currentText());
     goal_nodes_model->appendRow(item);
     list_view_->update();
     solve();
+    updateWholeDistanceLabel();
 }
 
 void PathPlanning::removeStation() {
-    goal_nodes_model->removeRow(goal_nodes_model->rowCount()-1);
+    if (distance_stack_.empty()) {
+        return;
+    }
+    whole_distance_-=distance_stack_.pop();
+    updateWholeDistanceLabel();
+    goal_nodes_model->removeRow(goal_nodes_model->rowCount() - 1);
     list_view_->update();
     result_widget_->removeResult();
 }
 
 void PathPlanning::solve() {
-    long long start ,end ;
+    long long start = 0;
+    long long end = 0;
     if (goal_nodes_model->rowCount() == 1) {
         return;
     }
-    for (long long i = 0 ;i < goal_nodes_model->rowCount()-1;i++) {
-        start = goal_nodes_model->data(goal_nodes_model->index(i,0)).toLongLong();
-        end = goal_nodes_model->data(goal_nodes_model->index(i+1,0)).toLongLong();
-        map_model_->graph_.calculateShortestPaths(start);
-    }
+    auto row_count = goal_nodes_model->rowCount();
+    start = goal_nodes_model->data(goal_nodes_model->index(row_count-2, 0)).toLongLong();
+    end = goal_nodes_model->data(goal_nodes_model->index(row_count-1, 0)).toLongLong();
+    map_model_->graph_.calculateShortestPaths(start);
+
     result_widget_->addResult(map_model_->graph_.formatResult(end));
+    distance_stack_.push(map_model_->graph_.getDistance(end));
+    whole_distance_ += distance_stack_.top();
     emit MapViewHighlightPath(map_model_->graph_.getPath(end));
 }
+
 void PathPlanning::updateComboBoxModel() {
     // qDebug() << "station model";
     // qDebug() << "station model Station SIZE:";
@@ -75,4 +89,8 @@ void PathPlanning::updateComboBoxModel() {
 
 PathPlanning::~PathPlanning() {
     QWidget::~QWidget();
+}
+
+void PathPlanning::updateWholeDistanceLabel() {
+    whole_distance_label_->setText("whole distance: " + QString::number(this->whole_distance_));
 }

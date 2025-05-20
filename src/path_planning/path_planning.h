@@ -4,10 +4,13 @@
 #include <QPushButton>
 #include <QStandardItemModel>
 #include <QWidget>
-#include "list_view.h"
-#include "nodes_model.h"
+#include <qlayout.h>
+
+#include "../map/map_model.h"
 #include "result_widget.h"
 
+
+// 路径规划类，处理路径规划的ui模块
 class PathPlanning:public QWidget {
   Q_OBJECT
 public:
@@ -17,12 +20,25 @@ public:
     stations_ = stations;
   }
 
-  signals:
+  void updateWholeDistanceLabel();
+
+signals:
   void MapViewHighlightPath(QList<long long> path);
-  void MapViewCancelHightPath();
+
+  void MapViewCancelHighlightPath();
+
+public slots:
+  void updateComboBoxModel();
+
+  void addStation();
+
+  void removeStation();
+
+  void solve();
+
 private:
   ResultWidget *result_widget_;
-  ListView  *list_view_;
+  QListView  *list_view_;
   QPushButton *add_button_;
   QPushButton *remove_button_;
   QComboBox *combo_box_;
@@ -30,11 +46,9 @@ private:
   QSet<long long>* stations_;
   QStandardItemModel *station_model_;
   QStandardItemModel *goal_nodes_model;
-  public slots:
-  void updateComboBoxModel();
-  void addStation();
-  void removeStation();
-  void solve();
+  QLabel *whole_distance_label_;
+  QStack<qreal> distance_stack_{};
+  qreal whole_distance_{0};
 };
 
 #endif

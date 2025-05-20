@@ -10,11 +10,19 @@
 
 PathItem::PathItem(long long f_node, long long t_node, const QGeoPath &path, const long long id) {
     setId(id);
-    auto pen = QPen(Qt::red);
+    auto pen = QPen(Qt::black);
+    QVector<qreal> pattern;
+    pattern << 4.0 << 1.0;
+    pen.setDashPattern(pattern);
+    pen.setColor(Qt::white);
+    pen.setBrush(Qt::black);
+    pen.setCapStyle(Qt::FlatCap);
+    pen.setJoinStyle(Qt::MiterJoin);
     setZValue(1);
-    pen.setWidthF(0.1);
+    pen.setWidthF(4.0);
+    pen.setWidthF(Qt::DashLine);
+    pen.setCosmetic(true);
     this->setPen(pen);
-    // qDebug()<<size_;
 
 
     QPainterPath painter;
@@ -26,9 +34,6 @@ PathItem::PathItem(long long f_node, long long t_node, const QGeoPath &path, con
     pointF.setX(pointF.x() * size_.width());
     pointF.setY(pointF.y() * size_.height());
     painter.moveTo(pointF);
-
-
-
     for (const auto &coord: path.path()) {
         QPointF p = QWebMercator::coordToMercator(coord).toPointF();
         p.setX(p.x() * size_.width());
@@ -49,11 +54,27 @@ void PathItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 void PathItem::setHighlight(bool hl) {
     QPen pen;
     if (hl) {
-        pen.setColor(QColorConstants::Svg::mediumspringgreen);
-        pen.setWidthF(0.5);
+        // QVector<qreal> pattern;
+        // pattern << 4.0 << 1.0;
+        // pen.setDashPattern(pattern);
+        pen.setColor(QColorConstants::Svg::gold);
+        pen.setBrush(QColorConstants::Svg::gold);
+        setZValue(1);
+        pen.setWidthF(6);
+        pen.setCosmetic(true);
+        this->setPen(pen);
     } else {
-        pen = QPen(QColorConstants::Svg::red);
-        pen.setWidthF(0.1);
+        QVector<qreal> pattern;
+        pattern << 4.0 << 1.0;
+        pen.setDashPattern(pattern);
+        pen.setColor(Qt::white);
+        pen.setBrush(Qt::black);
+        pen.setCapStyle(Qt::FlatCap);
+        pen.setJoinStyle(Qt::MiterJoin);
+        pen.setWidthF(4.0);
+        pen.setWidthF(Qt::DashLine);
+        pen.setCosmetic(true);
+        this->setPen(pen);
     }
     this->setPen(pen);
 }

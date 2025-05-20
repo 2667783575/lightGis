@@ -10,9 +10,12 @@
 #include <private/qdoublevector2d_p.h>
 #include <private/qwebmercator_p.h>
 #include <QGraphicsSceneMouseEvent>
-class PathItem final:public QObject,public QGraphicsPathItem {
+
+// 路径图元类
+class PathItem final : public QObject, public QGraphicsPathItem {
     Q_OBJECT
-    public:
+
+public:
     long long id_;
     static QSize size_;
 
@@ -33,16 +36,16 @@ class PathItem final:public QObject,public QGraphicsPathItem {
         size_.setWidth(std::min(size.height(), size.width()));
     }
 
-    PathItem(long long f_node,long long t_node,const QGeoPath &path,long long id);
-    ~PathItem() override = default;
-void setHighlight(bool hl);
+    PathItem(long long f_node, long long t_node, const QGeoPath &path, long long id);
+
+    void setHighlight(bool hl);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-    signals:
+
+signals:
     void wakeUp(long long id);
 };
-
 
 
 #endif //PATH_ITEM_H

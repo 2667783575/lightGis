@@ -7,35 +7,40 @@
 #include <QGeoPolygon>
 #include <QGraphicsPathItem>
 
-class RegionItem final:public QObject,public QGraphicsPathItem {
+// 区域图元类
+class RegionItem final : public QObject, public QGraphicsPathItem {
     Q_OBJECT
+
 public:
     [[nodiscard]] long long id() const {
         return id_;
-
     }
 
     void setId(const long long id) {
         id_ = id;
     }
 
-    RegionItem()=default;
+    RegionItem() = default;
 
-    explicit RegionItem(const QGeoPolygon& polygon,long long id);
-    static QSize size_;
+    explicit RegionItem(const QGeoPolygon &polygon, long long id);
+
     static void setSize(const QSize size) {
         size_.setHeight(std::min(size.width(), size.height()));
         size_.setWidth(std::min(size.width(), size.height()));
     }
-    long long id_{};
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
 
 signals:
     void wakeUp(long long id);
-};
 
+private:
+
+    long long id_{};
+    static QSize size_;
+};
 
 
 #endif //REGION_ITEM_H

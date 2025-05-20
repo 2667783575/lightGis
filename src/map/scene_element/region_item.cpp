@@ -1,15 +1,15 @@
 //
 // Created by eric on 4/14/25.
 //
-
-#include "../scene_element/region_item.h"
-
 #include <iostream>
 #include <ostream>
 #include <qfont.h>
 #include <QGraphicsSceneMouseEvent>
 #include <private/qdoublevector2d_p.h>
 #include <private/qwebmercator_p.h>
+
+
+#include "../scene_element/region_item.h"
 
 void RegionItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsPathItem::mousePressEvent(event);
@@ -36,7 +36,6 @@ RegionItem::RegionItem(const QGeoPolygon &polygon, const long long id) {
         if (!first_time) {
             if (std::abs(point_pre.x() - point.x()) > size_.width() * scale_factor / filter_factor ||
                 std::abs(point_pre.y() - point.y()) > size_.height() * scale_factor / filter_factor) {
-
                 continue;
             }
         }
