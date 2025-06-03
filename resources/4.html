@@ -1,10 +1,40 @@
+<!-- help/0.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <style>
+        :root {
+            --primary-color: #3498db;  /* 主品牌色 */
+            --secondary-color: #2c3e50; /* 辅助色 */
+            --text-light: #34495e;      /* 亮色模式文字 */
+            --text-dark: #ecf0f1;       /* 暗色模式文字 */
+        }
+    </style>
 </head>
 <body>
+<h1>✏️ 关于作者和程序</h1>
 
+<div class="root">
+    <h2>作者</h2>
+    <p>作者是北京邮电大学2024级本科生,邮箱2667783575@qq.com</p>
+</div>
+
+<div class="root">
+    <h2>程序</h2>
+    <p>该程序使用qt6和nlohmann_json作为主要外部库，可以进行简单的geojson区域渲染（RFC7946标准）和道路渲染（没有找到官方标准
+        ，所以将shp文件使用网络上的转换器转换为json格式牵强的使用）以及显示相应信息，并支持使用dijkstra算法进行简单的路径规划。</p>
+</div>
+<div class="root">
+    <h2>缺陷和问题</h2>
+    <p>从设计上，使用geojson格式本身已经限制了这个程序不会有太大的作用（geojson渲染效率低且铁路渲染没有常用规范）</p>
+    <p>该程序在代码上满是缺陷，如类的设计不好，导致多处需要reinterpret强行转换</p>
+    <p>内存上，根据作者开发经验，想必会有很多bug</p>
+    <p>还有很多地方错误使用了一些高级特性，您可以嘲笑我，反正我又听不见</p>
+    <p>如果您发现bug，请不要在2667783575@qq.com联系作者，因为作者不看邮箱，也懒得改代码</p>
+</div>
+<div class="root">
+    <h2>Thank u for your look.</h2>
+    <h2>:P</h2>
+</div>
 </body>
 </html>

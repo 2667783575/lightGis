@@ -7,7 +7,7 @@
 PropertyView::PropertyView(MapModel *map_model, QWidget *parent): QWidget(parent), map_model_(map_model) {
     QWidget::setVisible(false);
     this->setWindowTitle("Info Panel");
-    this->setFixedSize(400,500);
+    this->setFixedSize(400,200);
     model_ = new QStandardItemModel(this);
     property_view_ = new QTableView(this);
     property_view_->setFont(QFont());
@@ -81,13 +81,13 @@ void PropertyView::displayPath(long long id) {
         addProperty("Pinyin", item->pinyin());
         addProperty("FNode", QString::number(item->fnode()));
         addProperty("TNode", QString::number(item->tnode()));
-        addProperty("Length", QString::number(item->length()));
+        addProperty("Length", QString::number(item->length(),'f',5));
         addProperty("Gbcode", QString::number(item->gbcode()));
         addProperty("LPoly", QString::number(item->lpoly()));
         addProperty("RPoly", QString::number(item->rpoly()));
         addProperty("Rai4m", QString::number(item->rai_4_m()));
         addProperty("Rai4mId", QString::number(item->rai_4_m_id()));
-
+        addProperty("id",QString::number(id));
         this->setFixedSize(property_view_->size().width(),property_view_->size().height());
         property_view_->update();
     }

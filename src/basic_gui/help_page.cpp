@@ -9,7 +9,7 @@ HelpPage::HelpPage(QWidget *parent):QDialog(parent) {
 }
 
 void HelpPage::loadContents() {
-    QStringList topics = {tr("布局解释"),tr("导入地图"),tr("属性面板"),tr("路径规划"),tr("关于作者")};
+    QStringList topics = {tr("布局解释"),tr("导入地图"),tr("属性面板"),tr("路径规划"),tr("关于作者和程序")};
     contentsList->setCurrentRow(0);
     contentsList->addItems(topics);
     connect(contentsList,&QListWidget::currentRowChanged,[this](int row){contentView->setSource(QUrl("qrc:/help/resources/"+QString::number(row)+".html"));});

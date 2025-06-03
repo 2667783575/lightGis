@@ -3,30 +3,37 @@
 <html>
 <head>
     <style>
-        .feature-box {
-            background: #e7f1ff;
-            border-radius: 8px;
-            padding: 16px;
-            margin: 12px 0;
+        :root {
+            --primary-color: #3498db;  /* 主品牌色 */
+            --secondary-color: #2c3e50; /* 辅助色 */
+            --text-light: #34495e;      /* 亮色模式文字 */
+            --text-dark: #ecf0f1;       /* 暗色模式文字 */
         }
     </style>
 </head>
 <body>
-    <h1>🚀 快速入门</h1>
+    <h1>🚀 总体布局</h1>
 
-    <div class="feature-box">
-        <h2>1. 新建项目</h2>
-        <p>文件 → <strong>新建项目</strong> 或使用快捷键 Ctrl+N</p>
-        <img src="qrc:/images/new-project.png" width="200">
+    <div class="root">
+        <h2>菜单栏</h2>
+        <p> 菜单栏位于全程序最上方，包括文件，ui视图，地图视图三个栏目</p>
+        <p> 其中文件栏目包含打开动作，可以用来打开地图json文件</p>
+        <p> ui视图栏目可以控制路径规划和属性面板的显示与隐藏</p>
+        <p> 地图视图栏目可以控制地图上区域，特路线路和站点编号的显示与隐藏</p>
     </div>
 
-    <div class="feature-box">
-        <h2>2. 基础操作</h2>
-        <ul>
-            <li>左键拖动画布</li>
-            <li>右键调出上下文菜单</li>
-            <li>滚轮缩放视图</li>
-        </ul>
+    <div class="root">
+        <h2>地图</h2>
+        <p> 地图位于程序右方中侧，在没有导入地图时是一个白色的小方块，地图视图是本程序不可隐藏的ui模块</p>
+    </div>
+
+    <div class="root">
+        <h2> 路径规划</h2>
+        <p> 路径规划模块默认是隐藏状态，从菜单栏中打开路径规划模块后在程序左侧会显示出路径规划模块</p>
+    </div>
+    <div class="root">
+        <h2> 属性面板</h2>
+        <p> 属性面板也默认是隐藏状态，从菜单栏中打开属性面板模块后，属性面板会显示在程序的右下方（地图下面）</p>
     </div>
 </body>
 </html>
